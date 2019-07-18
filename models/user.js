@@ -7,7 +7,7 @@ const poli = new Schema ({
     badge: String,
     delegacion: String,
     jefe: String
-})
+});
 
 const POLI = mongoose.model('Poli', poli)
 module.exports = {POLI}

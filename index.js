@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const mongoURL = 'mongodb+srv://Moy1234:Moy1234@firstdb-5axkr.mongodb.net/test?retryWrites=true&w=majority';
-const {POLI} = require('./models/user')
+const {Poli} = require('./models/user')
 const PORT = process.env.PORT || 3000;
 const app = express();
 
@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/policias', (req, res) => {
-    POLI.find().exec((err, poli) => {
+    Poli.find().exec((err, poli) => {
         if(err) {
             return res.status(404).json({message: 'Usuarios no encontrados'});
         } else {
