@@ -9,5 +9,5 @@ const poli = new Schema ({
     jefe: String
 });
 
-const POLI = mongoose.model('Poli', poli)
-module.exports = {POLI}
+const Poli = mongoose.model('Poli', poli)
+module.exports = {Poli}
