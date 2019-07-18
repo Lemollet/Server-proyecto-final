@@ -10,4 +10,5 @@ const poli = new Schema ({
 });
 
 const Poli = mongoose.model('Poli', poli)
+
 module.exports = {Poli}

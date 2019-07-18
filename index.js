@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const mongoURL = 'mongodb+srv://Moy1234:Moy1234@firstdb-5axkr.mongodb.net/test?retryWrites=true&w=majority';
-const {Poli} = require('./models/user')
+const {Poli} = require('./models/user');
 const PORT = process.env.PORT || 3000;
 const app = express();
 
