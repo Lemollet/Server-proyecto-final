@@ -30,6 +30,17 @@ app.get('/policias', (req, res) => {
     })
 });
 
+app.get('/policias/:code', (req, res) => {
+    const code = req.params.code
+    Poli.find({code: code }).exec((err, poli) => {
+        if(err) {
+            return res.status(404).json({message: 'Usuarios no encontrados'});
+        } else {
+            return res.status(200).json({poli});
+        }
+    })
+})
+
 app.post('/new/poli', (req, res) => {
     const params = req.body
     if(params.name && params.code) {
