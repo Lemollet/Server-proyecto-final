@@ -133,6 +133,31 @@ app.get('/administradores', (req, res) => {
 });
 
 
+app.post('/login', (req, res) => {
+    let params = req.body
+    if( params.email && params.password) {
+        Admin.findOne({email: params.email}).exec((err, user) => {
+            if (err) {
+                console.log(err);
+                res.send(err);
+            } if (user) {
+                if(user.password === params.password){
+                    console.log('Encontro usuario', user);
+                    res.send(user);
+                } else {
+                    res.status(404).send({message: 'Usuario o contraseña incorrectos'});
+                }
+            } else {
+                res.status(404).json({message: 'no se encontro el email'});
+            }
+        });
+    } else {
+        res.status(404).json({message: 'no enviaste datos'});
+    }
+});
+
+
+
 
 app.listen(PORT, () => {
     console.log(`Corriendo en el puerto ${PORT}`);
