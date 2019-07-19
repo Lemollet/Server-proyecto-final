@@ -1,20 +1,20 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 const mongoURL = 'mongodb+srv://Moy1234:Moy1234@firstdb-5axkr.mongodb.net/test?retryWrites=true&w=majority';
 const {Poli} = require('./models/user');
-const PORT = process.env.PORT || 3000;
-const app = express();
 const cors = require('cors');
+const app = express();
+const PORT = process.env.PORT || 3000;
 
+app.use(cors());
 
 mongoose.connect(mongoURL, {useNewUrlParser: true}, (err) => {
     if (!err) {
-        console.log('Todo chido aqui en mongo');
+        console.log('Todo chido en mongo');
     }
 });
 
-app.use(cors());
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json());
