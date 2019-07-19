@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const mongoURL = 'mongodb+srv://Moy1234:Moy1234@firstdb-5axkr.mongodb.net/test?retryWrites=true&w=majority';
 const {Poli} = require('./models/user');
 const {Reporte} = require('./models/reportes');
+const {Admin} = require('./models/Admin')
 const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -69,7 +70,6 @@ app.post('/new/poli', (req, res) => {
     }
 })
 
-
 app.post('/new/reporte', (req, res) => {
     const params = req.body
     if(params.code && params.descripcion) {
@@ -99,6 +99,39 @@ app.get('/reportes', (req, res) => {
         }
     })
 });
+
+
+app.post('/new/admin', (req, res) => {
+    const params = req.body
+    if(params.email && params.password) {
+        let newAdmin = Admin ({
+            email: params.email,
+            password: params.password
+        })
+
+        newAdmin.save((err, admin) => {
+            if(err){
+                res.status(500).json({message: 'Ocurrio un problema'})
+            } else if (res) {
+                res.status(201).json({data: params})
+            }
+        })
+    } else {
+        res.status(400).json({message: 'Peticion no permitida'})
+    }
+})
+
+
+app.get('/administradores', (req, res) => {
+    Admin.find().exec((err, admin) => {
+        if(err) {
+            return res.status(404).json({message: 'Usuarios no encontrados'});
+        } else {
+            return res.status(200).json({admin});
+        }
+    })
+});
+
 
 
 app.listen(PORT, () => {
