@@ -5,6 +5,7 @@ const mongoURL = 'mongodb+srv://Moy1234:Moy1234@firstdb-5axkr.mongodb.net/test?r
 const {Poli} = require('./models/user');
 const PORT = process.env.PORT || 3000;
 const app = express();
+const cors = require('cors');
 
 mongoose.connect(mongoURL, {useNewUrlParser: true}, (err) => {
     if (!err) {
