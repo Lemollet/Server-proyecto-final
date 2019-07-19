@@ -7,11 +7,14 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 const cors = require('cors');
 
+
 mongoose.connect(mongoURL, {useNewUrlParser: true}, (err) => {
     if (!err) {
         console.log('Todo chido aqui en mongo');
     }
 });
+
+app.use(cors());
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json());
