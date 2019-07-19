@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const mongoURL = 'mongodb+srv://Moy1234:Moy1234@firstdb-5axkr.mongodb.net/test?retryWrites=true&w=majority';
 const {Poli} = require('./models/user');
+const {Reporte} = require('./models/reportes');
 const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -48,7 +49,7 @@ app.get('/policias/:code', (req, res) => {
 app.post('/new/poli', (req, res) => {
     const params = req.body
     if(params.name && params.code) {
-        let newPoli = POLI ({
+        let newPoli = Poli ({
             name: params.name,
             code: params.code,
             badge: params.badge,
@@ -67,6 +68,37 @@ app.post('/new/poli', (req, res) => {
         res.status(400).json({message: 'Peticion no permitida'})
     }
 })
+
+
+app.post('/new/reporte', (req, res) => {
+    const params = req.body
+    if(params.code && params.descripcion) {
+        let newReprote = Reporte ({
+            code: params.code,
+            descripcion: params.descripcion
+        })
+
+        newReprote.save((err, reporte) => {
+            if(err){
+                res.status(500).json({message: 'Ocurrio un problema'})
+            } else if (res) {
+                res.status(201).json({data: params})
+            }
+        })
+    } else {
+        res.status(400).json({message: 'Peticion no permitida'})
+    }
+})
+
+app.get('/reportes', (req, res) => {
+    Reporte.find().exec((err, report) => {
+        if(err) {
+            return res.status(404).json({message: 'Usuarios no encontrados'});
+        } else {
+            return res.status(200).json({report});
+        }
+    })
+});
 
 
 app.listen(PORT, () => {
